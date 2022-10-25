@@ -85,8 +85,27 @@ function renderGame2 () {
 
 function renderGame3(){
  clear();
- background(220);
+ background(300);
   textSize(20);
  fill(40);
- text('The exercise 3 is succesfully laucnhed', 40, 390, 200, 200);
+ text('Welcome to exercise 3!', 100, 50, 300, 200);
+  textSize(10);
+  strokeWeight(0);
+  text('Please read the description below before you begin:',50,90,300,200 );
+  text('This is a fun game about drawing shapes to train motor skills. You will be asked to trace a variety of shapes with your finger across the screen. The intelligent system will track whether or not the trace is accurate and there will be a point system to track your progress', 50,100,300,150)
+  text('When you are ready please tap the "begin" button.', 50,180,300,200)
+  
+  btn3Begin = createButton('Begin');
+  btn3Begin.position(160, 240);
+  btn3Begin.style('background-color', cos);
+  btn3Begin.size(60);
+  btn3Begin.mousePressed(() => {choice = 3;
+                           Elementsgoeshere();
+                          }
+                   );
+}
+function beginGame3(){
+  text('Please trace the displayed shape:')
+  text('')
+}
 }
