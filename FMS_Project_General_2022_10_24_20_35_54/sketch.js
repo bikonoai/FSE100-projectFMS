@@ -1,6 +1,9 @@
 //Setup is only executed once immediately after running
+let playing;
 function setup() {
- createCanvas(400, 500);
+  createCanvas(400, 500);
+  playing = false;
+
 }
 
 //draw is executed infinitely while the program runs
@@ -20,7 +23,7 @@ function draw() {
      renderGame2 ();
      break;
    case 3:
-     renderGame3();
+     testGame3();
      break; 
   }
 }
@@ -83,6 +86,19 @@ function renderGame2 () {
  text('The exercise 2 is succesfully laucnhed', 40, 390, 200, 200);
 }
 
+
+// if (playing){ render game itself} else {all the code you have in game3}
+
+function testGame3(){
+  if(playing){
+    removeElements();
+    beginGame3();
+  }
+  else{
+    renderGame3();
+  }
+}
+
 function renderGame3(){
  clear();
  background(300);
@@ -92,20 +108,21 @@ function renderGame3(){
   textSize(10);
   strokeWeight(0);
   text('Please read the description below before you begin:',50,90,300,200 );
-  text('This is a fun game about drawing shapes to train motor skills. You will be asked to trace a variety of shapes with your finger across the screen. The intelligent system will track whether or not the trace is accurate and there will be a point system to track your progress', 50,100,300,150)
+  text('This is a fun game about drawing shapes to train motor skills. You will be asked to trace a variety of shapes with your finger across the screen. The intelligent system will track whether or not the trace is accurate and there will be a point system to track your progress', 50,110,320,200)
   text('When you are ready please tap the "begin" button.', 50,180,300,200)
   
+  let col1 = color(45, 223, 200, 50);
   btn3Begin = createButton('Begin');
   btn3Begin.position(160, 240);
-  btn3Begin.style('background-color', cos);
+  btn3Begin.style('background-color', col1);
   btn3Begin.size(60);
-  btn3Begin.mousePressed(() => {choice = 3;
-                           Elementsgoeshere();
-                          }
-                   );
+  btn3Begin.mousePressed(() => playing=true);
+                   
 }
+
 function beginGame3(){
-  text('Please trace the displayed shape:')
-  text('')
-}
+  background(300);
+  textSize(10);
+  text('Please trace the displayed shape:',50,60,300,150);
+  //text('');
 }
