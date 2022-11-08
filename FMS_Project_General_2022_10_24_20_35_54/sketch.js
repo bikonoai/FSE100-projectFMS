@@ -124,6 +124,8 @@ function renderGame3(){
                    
 }
 let x1, w, h, x2, y2, y1;
+const shapePoints = [];
+
 function generateShape() {
   x1 = 100;
   y1 = 150;
@@ -142,27 +144,31 @@ function generateShape() {
   x2 = x1 + w;
   y2 = y1 + h;
   
-//const int shapePoints[];
   for (let i = x1; i <= x2; i++){
-  
-}
-for (let i = y2; i <= x2; i++){
-  
-}
-for (let i = x1; i <= y2; i++){
-  
-}
-for (let i = x2; i <= y2; i++){
-  
-}
-}
+    shapePoints.push = [i,y1];
+    shapePoints.Push = [i,y2];
 
+
+  }
+
+  for (let i = y1; i <= y2; i++){
+    shapePoints.push = [x1,i];
+    shapePoints.push = [x2,i];
+  }
+  
+  
+}
+const drawPoints = [];
 function mouseDragged(event) {
     
-  let inLbar = event.clientX <= x1 + 10 && event.clientX >= x1 - 10 &&     event.clientY >= y1 - 10 && event.clientY <= y1+h+10;
+//   let inLbar = event.clientX <= x1 + 10 && event.clientX >= x1 - 10 &&     event.clientY >= y1 - 10 && event.clientY <= y1+h+10;
   
-  print('inside x:'+inLbar)
+//   print('inside x:'+inLbar)
+  print(event.clientX);
+  print(event.clientY);
+  drawPoints.push = [event.clientX,event.clientY]
   
+
   //How to know when we are at our destination?
   //event.clientX and event.clientY
   //x2, y2
@@ -207,6 +213,8 @@ function beginGame3(){
 
 
  // if mousePressed
+
+
 
 
 
