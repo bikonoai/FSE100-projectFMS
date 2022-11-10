@@ -10,7 +10,7 @@ function setup() {
 let choice = 0;
 let x = 90;
 function draw() {
-  clear()
+  //clear()
   //print(choice)
  switch(choice) {
    case 0:
@@ -92,7 +92,6 @@ function renderGame2 () {
 
 function testGame3(){
   if(playing){
-    removeElements();
     beginGame3();
   }
   else{
@@ -117,14 +116,19 @@ function renderGame3(){
   btn3Begin.position(160, 240);
   btn3Begin.style('background-color', col1);
   btn3Begin.size(60);
-  btn3Begin.mousePressed(() => {generateShape();playing=true;});
+  btn3Begin.mousePressed(() => {    
+    removeElements();
+    clear();
+    generateShape();
+    playing=true;
+  });
   
  
   
                    
 }
 let x1, w, h, x2, y2, y1;
-const shapePoints = [];
+//const shapePoints = [];
 
 function generateShape() {
   x1 = 100;
@@ -144,29 +148,39 @@ function generateShape() {
   x2 = x1 + w;
   y2 = y1 + h;
   
-  for (let i = x1; i <= x2; i++){
-    shapePoints.push = [i,y1];
-    shapePoints.Push = [i,y2];
+//   for (let i = x1; i <= x2; i++){
+//     shapePoints.push = [i,y1];
+//     shapePoints.Push = [i,y2];
 
 
-  }
+//   }
 
-  for (let i = y1; i <= y2; i++){
-    shapePoints.push = [x1,i];
-    shapePoints.push = [x2,i];
-  }
+//   for (let i = y1; i <= y2; i++){
+//     shapePoints.push = [x1,i];
+//     shapePoints.push = [x2,i];
+//   }
+  //if (mouseIsPressed){
+    //(mouseDragged(event));
+  //}
   
-  
+  fill('white');
+  stroke('green');
+  strokeWeight(20);
+  rect(x1, y1, w, h);
 }
 const drawPoints = [];
-function mouseDragged(event) {
+function mouseDragged() {
     
 //   let inLbar = event.clientX <= x1 + 10 && event.clientX >= x1 - 10 &&     event.clientY >= y1 - 10 && event.clientY <= y1+h+10;
   
 //   print('inside x:'+inLbar)
+  if (!playing && !started)
+    return;
   print(event.clientX);
   print(event.clientY);
-  drawPoints.push = [event.clientX,event.clientY]
+  ellipse(mouseX, mouseY, 24);
+  //fill('red');
+  drawPoints.push = [mouseX, mouseY]
   
 
   //How to know when we are at our destination?
@@ -178,41 +192,44 @@ function mouseDragged(event) {
   
   return false;
 }
-
+let started = false;
 function beginGame3(){
-  background(300);
+  //background(300);
+  started = true;
   textSize(10);
   fill('black');
   stroke('white');
-  text('Please trace the displayed shape:',50,60,300,150);
-  fill('white');
-  stroke('green');
-  strokeWeight(20);
-  rect(x1, y1, w, h);
+  text('Please fill in the displayed shape:',50,60,300,150);
+  
   describe('White rect at center with bright green outline.');
   // print ('x-variable: ' + mouseX);
   // print ('y-variable: ' + mouseY)
   
   
-  stroke('red');
-  strokeWeight(8);
+  
   //mousePressed();
 
+  fill('black');
+  stroke('white');
+  text("Current Score: 100%", 50, 400, 350, 150);
   //text('');
   //stroke(30,70,200);
   //noFill();
   //rect(50,100,200,100);
+  stroke('red');
+  strokeWeight(8);
 }
 
+function calculateScore(){
+  //if 
+
+}
 // function mousePressed() {
 //   fill('black');
 //   ellipse(mouseX, mouseY, 5, 5);
 //   // prevent default
 //   return false;
 // }
-
-
- // if mousePressed
 
 
 
