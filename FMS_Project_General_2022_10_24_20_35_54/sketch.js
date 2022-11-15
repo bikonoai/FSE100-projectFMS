@@ -127,6 +127,7 @@ function renderGame3(){
   
                    
 }
+
 let x1, w, h, x2, y2, y1;
 //const shapePoints = [];
 
@@ -180,6 +181,8 @@ function mouseDragged() {
   print(event.clientY);
   ellipse(mouseX, mouseY, 24);
   //fill('red');
+  
+  calculateScore(mouseX, mouseY);
   drawPoints.push = [mouseX, mouseY]
   
 
@@ -199,6 +202,7 @@ function beginGame3(){
   textSize(10);
   fill('black');
   stroke('white');
+  textSize(15);
   text('Please fill in the displayed shape:',50,60,300,150);
   
   describe('White rect at center with bright green outline.');
@@ -211,7 +215,10 @@ function beginGame3(){
 
   fill('black');
   stroke('white');
-  text("Current Score: 100%", 50, 400, 350, 150);
+  let score = ((corrCount/totalCount) * 100).toFixed(0);
+  //let s = 
+  textSize(15);
+  text("Current Score: " + score +"%" , 50, 475, 350, 150);
   //text('');
   //stroke(30,70,200);
   //noFill();
@@ -219,10 +226,18 @@ function beginGame3(){
   stroke('red');
   strokeWeight(8);
 }
-
-function calculateScore(){
-  //if 
-
+let totalCount = 0;
+let corrCount = 0;
+function calculateScore(X,Y){
+  totalCount = totalCount + 1;
+  //check if X and Y is within the shape
+  
+  //if so increment corrCount
+  
+  //always increment totalCount
+  if ((X <= x2 && X >= x1) && (Y <= y2 && Y >= y1)){
+    corrCount = corrCount + 1;
+  }
 }
 // function mousePressed() {
 //   fill('black');
