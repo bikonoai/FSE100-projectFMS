@@ -25,12 +25,17 @@ function draw() {
    case 3:
      testGame3();
      break; 
+   case 4:
+     pauseGame();
+
   }
   
 }
 
 function renderMainMenu() {
-  stroke('black');
+  //stroke('black');
+  fill('black');
+  stroke('white');
   clear();
   background('white');
   textSize(22);
@@ -64,6 +69,8 @@ function renderMainMenu() {
   btn3.style('background-color', col);
   btn3.mousePressed(() => {choice = 3;
                            removeElements();
+                           clear();
+                           generateShape()
                           }
                    );
   
@@ -101,6 +108,7 @@ function testGame3(){
 
 function renderGame3(){
  clear();
+ removeElements();
  background(300);
   textSize(20);
  fill(40);
@@ -108,7 +116,7 @@ function renderGame3(){
   textSize(10);
   strokeWeight(0);
   text('Please read the description below before you begin:',50,90,300,200 );
-  text('This is a fun game about drawing shapes to train motor skills. You will be asked to trace a variety of shapes with your finger across the screen. The intelligent system will track whether or not the trace is accurate and there will be a point system to track your progress', 50,110,320,200)
+  text('This is a fun game about filling shapes to train motor skills. You will be asked to fill a variety of shapes with your finger or mouse across the screen. The intelligent system will track whether or not the fill is accurate and there will be a percentage system to track your progress', 50,110,320,200)
   text('When you are ready please tap the "begin" button.', 50,180,300,200)
   
   let col1 = color(45, 223, 200, 50);
@@ -123,7 +131,8 @@ function renderGame3(){
     playing=true;
   });
   
- 
+
+
   
                    
 }
@@ -179,6 +188,8 @@ function mouseDragged() {
     return;
   print(event.clientX);
   print(event.clientY);
+  stroke('red');
+  strokeWeight(8);
   ellipse(mouseX, mouseY, 24);
   //fill('red');
   
@@ -203,7 +214,7 @@ function beginGame3(){
   fill('black');
   stroke('white');
   textSize(15);
-  text('Please fill in the displayed shape:',50,60,300,150);
+  text('Please fill in the displayed shape:',40,50,300,170);
   
   describe('White rect at center with bright green outline.');
   // print ('x-variable: ' + mouseX);
@@ -223,8 +234,28 @@ function beginGame3(){
   //stroke(30,70,200);
   //noFill();
   //rect(50,100,200,100);
-  stroke('red');
-  strokeWeight(8);
+
+  fill('black');
+  stroke('white');
+  restartButton()
+  // fill('black');
+  // stroke('white');
+  if (score > 80 && score <= 100){
+    
+    text('You are doing great. Keep Going!',50,80,300,150)
+  }
+  fill('black');
+  stroke('white');
+   let col = color('#6699ff');
+  btnPause = createButton("Pause");
+  btnPause.position(320, 30);
+  btnPause.style('background-color', col); 
+  btnPause.mousePressed(() => {
+                                choice = 4;
+                                removeElements();
+                              }
+                       );
+  
 }
 let totalCount = 0;
 let corrCount = 0;
@@ -239,12 +270,69 @@ function calculateScore(X,Y){
     corrCount = corrCount + 1;
   }
 }
+function restartButton(){
+//createButton(Restart, restartGame);
+btn3R = createButton('Restart');
+btn3R.position(320, 470);
+let col2 = color(45, 223, 200, 50);
+btn3R.style('background-color', col2);
+btn3R.size(60);
+btn3R.mousePressed(() => {    
+    removeElements();
+    clear();
+    generateShape();
+    beginGame3();
+    totalCount = 0;
+    corrCount = 0;
+}
+                       )}
+
+
+function pauseGame () {
+  clear();
+  background(220);
+  // textSize(20);
+  // fill(40);
+  text("You paused the game", 100, 100);
+  
+  let col = color('#6699ff');
+  btnResume = createButton("Resume the game");
+  btnResume.position(50, 200);
+  btnResume.style('background-color', col); 
+  btnResume.mousePressed(() => {
+    choice = 3;
+    removeElements();
+    clear();
+    generateShape();
+    beginGame3();
+    // totalCount = 0;
+    // corrCount = 0;
+                              }
+                       );
+  
+  
+  btnMenu = createButton("Go back to main menu");
+  btnMenu.position(50, 300);
+  btnMenu.style('background-color', col); 
+  btnMenu.mousePressed(() => {
+    choice = 0;
+    clear();
+    removeElements();
+                              }
+                       );
+  
+}
+
+// }
 // function mousePressed() {
 //   fill('black');
 //   ellipse(mouseX, mouseY, 5, 5);
 //   // prevent default
 //   return false;
 // }
+
+
+ // if mousePressed
 
 
 
