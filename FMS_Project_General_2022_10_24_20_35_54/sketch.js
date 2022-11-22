@@ -72,8 +72,7 @@ function preload() {
 
 function draw() {
   //clear()
-  //print(choice)
-
+  print(playing);
  switch(choice) {
    case 0:
      renderMainMenu();
@@ -95,11 +94,13 @@ function draw() {
      break;
    case 4:
      pauseGame();
+     break;
    case 5:
      pauseGame1();
      break;
    case 6:
      pauseGame2();
+     break;
    }
 
 }
@@ -552,7 +553,7 @@ function mouseDragged() {
 //   let inLbar = event.clientX <= x1 + 10 && event.clientX >= x1 - 10 &&     event.clientY >= y1 - 10 && event.clientY <= y1+h+10;
   
 //   print('inside x:'+inLbar)
-  if (!playing && !started)
+  if (!playing || !started)
     return;
   print(event.clientX);
   print(event.clientY);
@@ -665,6 +666,7 @@ function pauseGame () {
   background(220);
   // textSize(20);
   // fill(40);
+  noStroke();
   text("You paused the game", 100, 100);
   
   let col = color('#6699ff');
@@ -689,6 +691,7 @@ function pauseGame () {
   btnMenu.mousePressed(() => {
     choice = 0;
     clear();
+    playing = false;
     removeElements();
                               }
                        );
