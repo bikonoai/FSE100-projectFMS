@@ -8,7 +8,10 @@ let choice = 0;
 let x = 90;
 let beanImg;
 let beanImgNum = 0;
+let beanStateImg;
+let beanState = 0;
 let forwardButton;
+let message = 0, stepInfo;
 
 
 let showText = false;
@@ -17,15 +20,40 @@ let showText = false;
 var beanScore = 0; // BEAN PICKING 
 
 function preload() {
-  forwardButton = loadImage('Forward Button.png');
-  
-  switch(beanImgNum) {
+  switch(beanState){
     case 0:
-      beanImg = loadImage('Black Bean.jpg');  // variable to switch
+      beanStateImg = loadImage('Normal Bean.png');
       break;
     case 1:
-      beanImg = loadImage('Green Bean.jpg');
+      beanStateImg = loadImage('Happy Bean.png');
       break;
+    case 2:
+      beanStateImg = loadImage('Sad Bean.png');
+      break;
+  }
+  switch(beanImgNum) {
+    case 0:
+      beanImg = loadImage('1 Materials Needed.png'); 
+      break;
+    case 1:
+      beanImg = loadImage('2 Pick Bean.png');
+      break;
+    case 2:
+      beanImg = loadImage('3 Bean Over Cup.png');
+      break;
+    case 3:
+      beanImg = loadImage('4 Dropped bean.png');
+      break;
+    case 4:
+      beanImg = loadImage('5 Plus Score.png');
+      break;
+    case 5:
+      beanImg = loadImage('6 Minus Score.png');
+      break; 
+    case 6:
+      beanImg = loadImage('6 Minus Score.png');
+      break;     
+
   }
   
   
@@ -49,9 +77,12 @@ function draw() {
    case 3:
      renderGame3();
      break; 
-   case 4: 
+   case 7: 
      beanStartPage();
-     
+     break;
+   case 4:
+     pauseGame();
+
        
      }
 }
@@ -81,7 +112,7 @@ function renderMainMenu() {
   btn2 = createButton('Exercise 2'); // Bean Picking
   btn2.position(40, 220);
   btn2.style('background-color', col);
-  btn2.mousePressed(() => {choice = 2;
+  btn2.mousePressed(() => {choice = 7;  //choice change here
                            removeElements();
                           }
                    );
@@ -109,7 +140,6 @@ function renderGame1() {
 function renderGame2 () {  // Bean Picking
  let col = color('#6699ff');
   
-  //let beanScore = 0;
   
  clear();
  background('white');
@@ -120,80 +150,203 @@ function renderGame2 () {  // Bean Picking
  fill(40);
  text('Bean Picking', 50, 50, 200, 200);
   
-  text('Instructions', 50, 100, 200, 200);
-  text('Insert Picture of Exercise', 50, 150, 200, 200);  //picture or video of the activity
-  text('Score',300, 25, 100, 100);
-  text(beanScore, 360, 25, 100, 100);
+  // text('Instructions', 50, 100, 200, 200);
+  // text('Insert Picture of Exercise', 50, 150, 200, 200);  //picture or video of the activity
+  text('Score',150, 100, 100, 100);
+  text(beanScore, 220, 100, 100, 100);
+  
+  beanStateImg.resize(150, 0);
+  image(beanStateImg, 130, 90);
+
+  //Pause Button
+  btnPause = createButton("Pause");
+  btnPause.position(40, 390);
+  btnPause.style('background-color', col); 
+  btnPause.mousePressed(() => {
+                                choice = 4;
+                                removeElements();
+                              }
+                       );
 
   
- addScoreButton = createButton('+1')
- addScoreButton.position(350, 120);
+ addScoreButton = createButton('I successfully put a bean in the cup! (+1)')
+ addScoreButton.position(50, 280);
  addScoreButton.style('background-color', col);
   
  addScoreButton.mousePressed(updateBeanScore);
   
-  newScreenButton = createButton('New')
- newScreenButton.position(300, 120);
- newScreenButton.style('background-color', col);
+  minusScoreButton = createButton('I did NOT successfully put a bean in the cup. (-1)')
+ minusScoreButton.position(50, 320);
+ minusScoreButton.style('background-color', col);
   
- newScreenButton.mousePressed(beanStartPage);
+ minusScoreButton.mousePressed(minusBeanScore);
+  
+ 
+  
+//  endButton = createButton('End')
+//  endButton.position(50, 400);
+//  endButton.style('background-color', col);
+  
+//  endButton.mousePressed(minusBeanScore);
+ 
+}
 
+function calculateScore(){
   
-  //putBeanYES = createButton
-  //putBeanNO = createButton
-  //putBeanMISTAKE = createButton  // Mistakenly clicked putBeanYES
   
-
 }
 
 function beanStartPage(){
-  removeElements();
-   let col = color('#6699ff');
-  choice = 4;
+  let col = color('#6699ff');
+  choice = 7;
    
   
   clear();
- background('white');
- noStroke();
- fill(col);
- rect(0,0,400,75);
- textSize(20);
- fill(40);
-  
-   text('WELCOME TO BEAN PICKING!', 60, 50, 300, 200);
+  background('white');
+  noStroke();
+  fill(col);
+  rect(0,0,400,75);
+  textSize(20);
+  fill(40);
+  text('WELCOME TO BEAN PICKING!', 60, 50, 300, 200);
   text('Activity Instructions', 25, 100, 300, 200);
   
-  
-  text('Get youself some beans', 25, 300, 300, 200);
-
-  
   image(beanImg, 50,135);
-  beanImg.resize(300,0);
   
-  newScreenButton = createButton('New')
- newScreenButton.position(300, 120);
- newScreenButton.style('background-color', col);
+  //Start Button
+  startButton = createButton('Start')
+  startButton.position(300, 475);
+  startButton.style('background-color', col);
   
- newScreenButton.mousePressed(beanStartPage);
+  startButton.mousePressed(startBeanGame);
+  
+  // Continue Button
+  continueButton = createButton('Continue')
+  continueButton.position(300, 450);
+  continueButton.style('background-color', col);
+  
+  continueButton.mousePressed(changeImage);
+  
+  // Back Button
+  backButton = createButton('Back')
+  backButton.position(250, 450);
+  backButton.style('background-color', col);
+  
+  backButton.mousePressed(backImage);
+  
+  if (message == 0){
+    stepInfo = "You will need: \n   * A flat surface (like a table) \n   * beans   \n * cup"; 
+    // picture insert w/ items needed (cup, beans, flat surface)
+  }
+  if (message == 1){
+    stepInfo = "1) Pick up the bean";
+  }
+  if (message == 2){
+    stepInfo = "2) Bring the bean over to the cup";
+  }
+  if (message == 3){
+  stepInfo = "3) Put the bean in the cup.";
+  }
+  if (message == 4){
+  stepInfo = "4) Press the +1 button if bean lands in cup";
+  }
+  if (message == 5){
+  stepInfo = "5) Press the -1 button if bean doesn't land in cup";
+  }
+  if (message == 6){
+  stepInfo = "When you're ready to begin, click start!";
+  }
   
   
+  text(stepInfo, 25, 320, 300, 200);
+
+}
+
+function startBeanGame(){
+  removeElements();
+  choice = 2;
+}
+
+function backImage() {
+  
+  if ((message >=0) && (message <= 6)){
+    if (message == 0){
+      
+    }
+    else{
+    message--;
+    beanImgNum -= 1;
+    }
+  }
+  print("Bean Image" + beanImgNum);
+  print("Message" + message);
+  preload();
 }
 
 function changeImage() {
-  beanImgNum += 1;
   
+  if ((message >= 0) && (message <= 6)){  // 0,1,2, 3
+    if (message == 6){
+      
+    }
+    else{ beanImgNum += 1;
+    message++;}}
+   
+  print("Bean Image" + beanImgNum)
+  print("Message" + message)
+  preload();
 }
 
+function minusBeanScore(){
+  text(beanScore, 360, 25, 100, 100);
+  beanScore--;  
+  beanState = 2;
+  preload();
+}
 function updateBeanScore(){
   
   text(beanScore, 360, 25, 100, 100);
-  beanScore += 1;
+  beanScore++;
+  
+  beanState = 1;
+  preload();
   }
+
+//this is a separate function 
+function pauseGame () {
+  clear();
+  background(220);
+  // textSize(20);
+  // fill(40);
+  text("You paused the game", 100, 100);
+  
+  let col = color('#6699ff');
+  btnResume = createButton("Resume the game");
+  btnResume.position(50, 200);
+  btnResume.style('background-color', col); 
+  btnResume.mousePressed(() => {
+                                choice = 2;
+                                removeElements();
+                              }
+                       );
+  
+  
+  btnMenu = createButton("Go back to main menu");
+  btnMenu.position(50, 300);
+  btnMenu.style('background-color', col); 
+  btnMenu.mousePressed(() => {
+                                choice = 0;
+                                removeElements();
+                              }
+                       );
+  
+}
+
 
 function renderGame3(){
  clear();
  background(220);
-  textSize(20);
+ textSize(20);
  fill(40);
  text('The exercise 3 is succesfully laucnhed', 40, 390, 200, 200);
 }
