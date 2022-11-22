@@ -240,10 +240,14 @@ function beginGame3(){
   restartButton()
   // fill('black');
   // stroke('white');
-  if (score > 80 && score <= 100){
+  if (score >= 80 && score <= 100){
     
     text('You are doing great. Keep Going!',50,80,300,150)
   }
+  if (score <= 70){
+    text('You got this! Try to fill more of the shape!',50,80,300,150)
+  }
+  
   fill('black');
   stroke('white');
    let col = color('#6699ff');
@@ -322,6 +326,7 @@ function pauseGame () {
                        );
   
 }
+
 
 // }
 // function mousePressed() {
